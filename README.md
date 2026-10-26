@@ -11,15 +11,17 @@ for the environment - rather than plain unidirectional path tracing
 event instead of relying on a random walk happening to hit them, converging
 to a clean image in far fewer samples.
 
-## Requirements
-
-Needs the `rdv`/`vk` packages from the sibling `rdv_project`/`vk_project`
-checkouts on `PYTHONPATH`, plus `numpy`, `torch`, and `Pillow` (only needed
-for `.png` output).
+## Installation
 
 ```
-PYTHONPATH=<path-to-vk_project>/src:<path-to-rdv_project>/src python render.py ...
+pip install cloud-renderer[png]
 ```
+
+This pulls in `rendervous` (which pulls in `vulky`), `numpy`, and `torch`.
+The `[png]` extra adds `Pillow`, needed only for `.png` output - omit it if
+you only save `.npy`.
+
+Installs a `cloud-renderer` command on PATH.
 
 ## Example
 
@@ -31,7 +33,7 @@ in ~4min on an RTX 2080 Ti (`--batch_samples 4` here since the default of
 parameter table below):
 
 ```
-python render.py \
+cloud-renderer \
     --volume_path examples/disney_cloud.npy \
     --environment_path examples/syferfontein_sky.npy \
     --density_scale 500 \
