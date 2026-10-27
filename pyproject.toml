@@ -13,6 +13,7 @@ dependencies = [
     "rendervous>=0.0.4",
     "numpy",
     "torch",
+    "tqdm",
 ]
 
 [project.optional-dependencies]

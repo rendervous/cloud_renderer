@@ -39,6 +39,7 @@ import argparse
 import os
 import numpy as np
 import torch
+from tqdm import tqdm
 
 import rdv
 
@@ -211,12 +212,13 @@ def main():
     # result is moved to host memory, right before converting to numpy.
     accum = torch.zeros(args.height, args.width, 9, device='cuda')
     done = 0
-    while done < args.samples:
-        n = min(chunk, args.samples - done)
-        c = capture_grid().as_tensor('torch')[0]
-        accum += c * n
-        done += n
-        print(f"  {done}/{args.samples} samples")
+    with tqdm(total=args.samples, unit="spp", desc="Rendering", dynamic_ncols=True) as progress:
+        while done < args.samples:
+            n = min(chunk, args.samples - done)
+            c = capture_grid().as_tensor('torch')[0]
+            accum += c * n
+            done += n
+            progress.update(n)
     c = accum / args.samples
     light_intensity = torch.tensor(args.light_intensity, device='cuda')
     direct, env_scatter, background = c[..., 0:3], c[..., 3:6], c[..., 6:9]

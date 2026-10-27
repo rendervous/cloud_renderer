@@ -17,7 +17,8 @@ to a clean image in far fewer samples.
 pip install cloud-renderer[png]
 ```
 
-This pulls in `rendervous` (which pulls in `vulky`), `numpy`, and `torch`.
+This pulls in `rendervous` (which pulls in `vulky`), `numpy`, `torch`, and
+`tqdm` (render progress bar).
 The `[png]` extra adds `Pillow`, needed only for `.png` output - omit it if
 you only save `.npy`.
 
