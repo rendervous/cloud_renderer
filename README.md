@@ -28,7 +28,9 @@ Installs a `cloud-renderer` command on PATH.
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/rendervous/cloud_renderer/blob/main/colab/cloud_renderer_demo.ipynb)
 
 `colab/cloud_renderer_demo.ipynb` installs this package straight from GitHub,
-downloads the shared 500-cloud dataset from Google Drive (cached locally),
+downloads the shared 500-cloud dataset from
+[Hugging Face](https://huggingface.co/datasets/rendervous-project/compact_clouds)
+(`clouds_500.h5`, ~13.7 GB, cached locally),
 extracts one cloud into a raw `.npy` volume, renders it, and displays the
 result with matplotlib.
 
