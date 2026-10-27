@@ -21,7 +21,7 @@ that class's separate post-hoc environment_scale knob, since this script's
 own --light_intensity is the only post-render scale exposed, and the HDR
 file's/constant color's own values are otherwise used as-is.
 
-Volume file: single .npy, shape (Z, Y, X), float - raw extinction/density
+Volume file: single .npy, shape (D, H, W, 1), float - raw extinction/density
 grid (scaled at render time by --density_scale).
 
 Environment: either --environment_path (.npy, shape (H, W, 3), float,
@@ -62,9 +62,9 @@ class UniformEnvironmentSampler(rdv.Map):
 
 def load_volume(path: str) -> torch.Tensor:
     arr = np.load(path).astype(np.float32)
-    if arr.ndim != 3:
-        raise ValueError(f"--volume_path must be a 3D (Z,Y,X) array, got shape {arr.shape}")
-    return torch.from_numpy(arr).unsqueeze(-1)  # (Z,Y,X,1)
+    if arr.ndim != 4 or arr.shape[-1] != 1:
+        raise ValueError(f"--volume_path must be a (D,H,W,1) array, got shape {arr.shape}")
+    return torch.from_numpy(arr)
 
 
 def load_environment(path: str | None) -> torch.Tensor:
@@ -147,7 +147,7 @@ def build_camera(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--volume_path", required=True, help=".npy file, shape (Z,Y,X), raw extinction/density grid")
+    parser.add_argument("--volume_path", required=True, help=".npy file, shape (D,H,W,1), raw extinction/density grid")
     parser.add_argument("--environment_path", default=None, help=".npy file, shape (H,W,3), equirectangular HDR radiance (optional)")
     parser.add_argument("--environment_color", type=float, nargs=3, default=None,
                          help="constant ambient color instead of an HDR image - mutually exclusive with --environment_path")

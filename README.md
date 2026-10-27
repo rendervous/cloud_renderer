@@ -67,7 +67,7 @@ convention elsewhere in `rendervous.project`.)
 
 ## File formats
 
-- `--volume_path` (required): `.npy`, shape `(Z, Y, X)`, float - raw
+- `--volume_path` (required): `.npy`, shape `(D, H, W, 1)`, float - raw
   extinction/density grid. Scaled at render time by `--density_scale`.
 - `--environment_path` (optional): `.npy`, shape `(H, W, 3)`, float -
   equirectangular HDR radiance map, standard top-row-first image convention
