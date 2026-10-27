@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 authors = [{name = "Ludwic Leonard Mendez", email = "lleonart1984@gmail.com"}]
 dependencies = [
-    "rendervous>=0.0.1",
+    "rendervous>=0.0.4",
     "numpy",
     "torch",
 ]
